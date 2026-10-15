@@ -24,10 +24,11 @@ for doi in dois:
         matching = [c for c in hit.molecule.components if template.match_molecule(c)]
         if matching:
             outmol = matching[0]
-            outpath = outdir / f'{hit.identifier}.mol2'
+            refcode = hit.identifier
+            outpath = outdir / f'{refcode}.mol2'
             with MoleculeWriter(outpath) as writer:
                 writer.write(outmol)
-            rows.append(dict(doi=doi, deposition_number=hit.entry.ccdc_number, refcode=hit.identifier,
+            rows.append(dict(doi=doi, deposition_number=hit.entry.ccdc_number, refcode=refcode,
                              mol2_path=str(outpath), formal_charge=outmol.formal_charge,
                              disorder_string=hit.entry.disorder_details))
 
